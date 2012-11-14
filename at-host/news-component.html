@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Component</title>
+</head>
+<body>
+  <element name="news" extends="ul">
+    <template>
+      <style scoped>
+        @host { 
+          ul { color: red; }
+
+          *[is="news"] {
+            border-left: 20px solid black;
+          }
+        } 
+
+        a{ 
+          color: green; 
+        }
+      </style>
+      <h2>Breaking News</h2>
+      <div>
+        <ul>
+          <content select=".breaking"></content>
+        </ul>
+
+        <ul>
+          <content></content>
+          <li><a href="#">I am a child added by the shadowy goodness of the template.<a></li>
+        </ul>
+      </div>
+    </template>
+  </element>
+</body>
+</html>
