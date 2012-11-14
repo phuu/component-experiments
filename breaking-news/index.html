@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>DOM Shadows - News</title>
+
+<style>
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  div {
+    padding: 1em;
+    margin: 0 0 1em;
+  }
+  div.breaking {
+      color: red;
+      font-size: 1.5em;
+      border: 1px dashed red;
+  }
+  div.breaking:before {
+    content: 'Breaking:';
+    display: block;
+  }
+  div.not-so-breaking {
+      border: 1px dotted green;
+  }
+  div.other {
+      border: 1px solid blue;
+  }
+</style>
+
+<ul class="stories">
+    <li><a href="//example.com/stories/1">A story</a></li>
+    <li><a href="//example.com/stories/2">Another story</a></li>
+    <li class="not-so-breaking"><a href="//example.com/stories/3">Boring story</a></li>
+    <li class="breaking"><a href="//example.com/stories/3">Also a story</a></li>
+    <li><a href="//example.com/stories/4">Yet another story</a></li>
+    <li><a href="//example.com/stories/4">Awesome story</a></li>
+    <li class="not-so-breaking"><a href="//example.com/stories/3">Also a boring story</a></li>
+    <li class="breaking"><a href="//example.com/stories/5">Horrible story</a></li>
+</ul>
+
+<script>
+  window.ShadowRoot = window.ShadowRoot || window.WebKitShadowRoot;
+
+  var groupify = function (className, contentSelector) {
+      var group = document.createElement('div');
+      group.className = className;
+      group.innerHTML = '<ul><content select="' + contentSelector + '"></content></ul>';
+      return group;
+  };
+
+  var shadowify = function (list) {
+      var root = new ShadowRoot(list);
+      
+      root.applyAuthorStyles = true;
+      root.appendChild(groupify('breaking', '.breaking'));
+      root.appendChild(groupify('not-so-breaking', '.not-so-breaking'));
+      root.appendChild(groupify('other', ''));
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    [].forEach.call(document.querySelectorAll('ul.stories'), shadowify);
+  });
+</script>
