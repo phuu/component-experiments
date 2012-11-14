@@ -1,0 +1,3 @@
+[submodule "Web-Components-Polyfill"]
+	path = Web-Components-Polyfill
+	url = git://github.com/dglazkov/Web-Components-Polyfill.git
